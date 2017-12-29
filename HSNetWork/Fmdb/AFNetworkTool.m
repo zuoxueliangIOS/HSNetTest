@@ -12,11 +12,6 @@
 #import "SQLiteJsonCache.h"
 #import "JsonCacheData.h"
 #import "AFNetworkTool.h"
-#import "HSTabbarViewController.h"
-#import "HSNavigationViewController.h"
-#import "HSLoginController.h"
-//#import "FLLoginViewController.h"
-//#import "APIConfig.h"
 #import "HSNetSetting.h"
 #import "AFHTTPSessionManager.h"
 
@@ -54,16 +49,15 @@
     //[manager.requestSerializer setValue:@"headers" forHTTPHeaderField:@"Referer: http://www.vyanke.com\n"];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     NSMutableDictionary * dict = [NSMutableDictionary dictionaryWithDictionary:paramDict];
-        NSString * url;
-        NSDictionary * param;
+        NSString * url = @"http://appdev2.hskaoyan.com/v4/material/tab";
+        NSDictionary * param = paramDict;
         //拼接将要访问的URL地址
        // NSDictionary * dict2 = [HSNetUrlProcess createCompDictWithParm:dict];
        // NSString * value = [dict2 mj_JSONString];
        // url = [HSNetUrlProcess createHeadURL:dict];
         NSLog(@"URL是%@",url);
     if (netSettting.isEncry==YES) {
-       // param = @{@"param":[EncryProcess textEncrypt:value]};
-        //NSLog(@"加密后完整参数%@",[EncryProcess textEncrypt:value]);
+
     }
     else
     {
@@ -152,7 +146,7 @@
             NSString * str = [[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
           //  NSString * decodeStr = [EncryProcess textDecrypt:str];
             //NSLog(@"解密后的参数=%@",decodeStr);
-            NSData *jsonData = [decodeStr dataUsingEncoding:NSUTF8StringEncoding];
+            NSData *jsonData = [str dataUsingEncoding:NSUTF8StringEncoding];
             NSError *err;
             NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:jsonData
                                                                  options:NSJSONReadingMutableContainers
@@ -228,7 +222,8 @@
         set.isEncry = NO;
     }
     NSMutableDictionary * dict = [NSMutableDictionary dictionaryWithDictionary:param];
-    NSString * sqliteKey = [HSNetUrlProcess createSqliteKeyWithParm:dict];
+    NSString * sqliteKey = @"123456789";
+    //NSString * sqliteKey = [HSNetUrlProcess createSqliteKeyWithParm:dict];
     JsonCacheData * data = [SQLiteJsonCache queryJsonCacheTableWithKey:sqliteKey];
     //读缓存，后面的null是服务器最近返回的错误数据，
     if (data.jsonCache.length>0&&(set.cachePolicy>HSCacheNoRead)&&(![data.jsonCache isEqualToString:@"(null)"]))

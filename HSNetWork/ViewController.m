@@ -10,6 +10,7 @@
 #import "AFNetworkTool.h"
 @interface ViewController ()
 
+@property (nonatomic,strong) UITextView * textF;
 @end
 
 @implementation ViewController
@@ -17,7 +18,27 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [AFNetworkTool HVDataCache:@{@"param1":@"param1_value",@"param2":@"param2_val"} NetBlock:^(NSDictionary *json) {
+    UIButton * btn = [[UIButton alloc]initWithFrame:CGRectMake(100, 100, 100, 100)];
+    [self.view addSubview:btn];
+    [btn addTarget:self action:@selector(reload) forControlEvents:UIControlEventTouchUpInside];
+    [btn setBackgroundColor:[UIColor redColor]];
+    
+    self.textF = [[UITextView alloc]initWithFrame:CGRectMake(0, 250, 350, 200)];
+    self.textF.backgroundColor = [UIColor redColor];
+    [self.view addSubview:self.textF];
+    
+    // Do any additional setup after loading the view, typically from a nib.
+}
+
+-(void)reload{
+    
+    self.textF.text = @"";
+    [AFNetworkTool HVDataCache:@{@"tab_id":@"215556ba35e46801a3b67cef3dc7041b",@"app_ver":@"2.2.10"} NetBlock:^(NSDictionary *json) {
+        NSError *parseError = nil;
+        
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:json options:NSJSONWritingPrettyPrinted error:&parseError];
+        
+         self.textF.text = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         
         //成功的代码
     } ErrorCode:^(int errorCode) {
@@ -25,10 +46,7 @@
     } Fail:^{
         //失败
     } Setting:self.defaultSet];
-    // Do any additional setup after loading the view, typically from a nib.
 }
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

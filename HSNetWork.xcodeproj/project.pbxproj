@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04473D421FF60720007C29E3 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 04473D411FF60720007C29E3 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		458A32DB1EB4FB3900EF432B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 458A32DA1EB4FB3900EF432B /* main.m */; };
 		458A32DE1EB4FB3900EF432B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 458A32DD1EB4FB3900EF432B /* AppDelegate.m */; };
 		458A32E11EB4FB3900EF432B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 458A32E01EB4FB3900EF432B /* ViewController.m */; };
@@ -53,6 +54,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		04473D401FF60720007C29E3 /* JSONKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		04473D411FF60720007C29E3 /* JSONKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		458A32D61EB4FB3900EF432B /* HSNetWork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HSNetWork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		458A32DA1EB4FB3900EF432B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		458A32DC1EB4FB3900EF432B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -168,6 +171,8 @@
 		458A32D81EB4FB3900EF432B /* HSNetWork */ = {
 			isa = PBXGroup;
 			children = (
+				04473D401FF60720007C29E3 /* JSONKit.h */,
+				04473D411FF60720007C29E3 /* JSONKit.m */,
 				458A33541EB4FE4B00EF432B /* SVProgressHUD */,
 				458A331D1EB4FDBC00EF432B /* AFNetworking */,
 				458A331A1EB4FD9B00EF432B /* AFNetworkTool.h */,
@@ -350,6 +355,7 @@
 				TargetAttributes = {
 					458A32D51EB4FB3900EF432B = {
 						CreatedOnToolsVersion = 8.2;
+						DevelopmentTeam = SARDJ63J28;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -409,6 +415,7 @@
 				458A32DE1EB4FB3900EF432B /* AppDelegate.m in Sources */,
 				458A334C1EB4FDBC00EF432B /* AFImageDownloader.m in Sources */,
 				458A33461EB4FDBC00EF432B /* AFURLRequestSerialization.m in Sources */,
+				04473D421FF60720007C29E3 /* JSONKit.m in Sources */,
 				458A334A1EB4FDBC00EF432B /* README.md in Sources */,
 				458A33001EB4FBBF00EF432B /* FMDatabaseQueue.m in Sources */,
 				458A33451EB4FDBC00EF432B /* AFSecurityPolicy.m in Sources */,
@@ -547,7 +554,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = SARDJ63J28;
 				INFOPLIST_FILE = HSNetWork/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaobaiyige.HSNetWork;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -558,7 +567,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = SARDJ63J28;
 				INFOPLIST_FILE = HSNetWork/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaobaiyige.HSNetWork;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -584,6 +595,7 @@
 				458A32EF1EB4FB3900EF432B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

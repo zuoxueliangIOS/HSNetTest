@@ -8,7 +8,7 @@
 
 #import "SqliteDB.h"
 #import "FMDB.h"
-#import "EncryProcess.h"
+//#import "EncryProcess.h"
 
 static SqliteDB * _onlyOne;
 
@@ -332,81 +332,5 @@ static FMDatabaseQueue *queue;
     return re;
 }
 
-
-//-------------------------网络推送的缓存
-
-+(void)insertPushCacheWithKey:(NSString *)key andWithValue:(NSDictionary*)value
-{
-//    NSString * tableName = @"t_pushcache";
-    
-    
-    
-
-    NSString * user_id = HVUSER_KEY;
-    if ([user_id isEqual:[NSNull null]]||[user_id length]==0) {
-        user_id = @"default";
-    }
-    
-    [queue inDatabase:^(FMDatabase *db) {
-        
-        FMResultSet * rs = [db executeQuery:@"SELECT * FROM t_pushcache where push_time = ?",key];
-        if (rs.next) {//已经存在
-            [rs close];
-
-            [db executeUpdate:@"UPDATE t_pushcache SET content = ?,new_user_id = ? WHERE push_time = ?",[SqliteDB dictionaryToJson:value],user_id,key];
-        }
-        else
-        {
-            //更新数据库
-            [db executeUpdate:@"INSERT INTO t_pushcache (push_time, content,new_user_id) VALUES (?, ? ,?)",key,[SqliteDB dictionaryToJson:value],user_id];
-        }
-    }];
-
-}
-
-
-+(NSDictionary*)queryPushCacheWithKey:(NSString*)key
-{
-    __block NSString * content=nil;
-    __block NSDictionary * dict;
-    [queue inDatabase:^(FMDatabase *db) {
-        // 1.查询数据
-        FMResultSet *rs = [db executeQuery:@"SELECT * FROM t_pushcache where key = ?",key];
-        // 2.遍历结果集
-        while (rs.next) {
-            content = [rs stringForColumn:@"content"];
-            dict = (NSDictionary*)[content objectFromJSONString];
-            break;
-        }
-        [rs close];
-    }];
-    return dict;
-}
-+(NSArray *)queryPushPageCnt:(int)count Page:(int) page
-{
-    __block NSMutableArray * arr = [NSMutableArray array];
-    [queue inDatabase:^(FMDatabase *db) {
-        
-        NSString * user_id =   HVUSER_KEY;
-        if ([user_id isEqual:[NSNull null]]||[user_id length]==0) {
-            
-            user_id = @"default";
-        }
-        NSString * sql = [NSString stringWithFormat:@"SELECT * FROM t_pushcache WHERE new_user_id ='%@' or new_user_id = 'default' order by id desc limit '%d','%d'",user_id,(page-1)*count,count];
-        FMResultSet *rs = [db executeQuery:sql];
-        while (rs.next) {
-
-            NSString * content =[rs stringForColumn:@"content"];
-            NSMutableDictionary * mutableDict = [[NSMutableDictionary alloc]initWithDictionary:[content objectFromJSONString]];
-            mutableDict[@"push_time"] = [rs stringForColumn:@"push_time"];
-            mutableDict[@"new_user_id"] = [rs stringForColumn:@"new_user_id"];
-            
-            [arr addObject:mutableDict];
-
-        }
-        [rs close];
-    }];
-    return arr;
-}
 @end
 
